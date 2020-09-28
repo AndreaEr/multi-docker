@@ -5,23 +5,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t AndreaEr/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t andreaer/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run AndreaEr/react-test npm test -- --coverage
+  - docker run andreaer/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t AndreaEr/multi-client ./client
-  - docker build -t AndreaEr/multi-nginx ./nginx
-  - docker build -t AndreaEr/multi-server ./server
-  - docker build -t AndreaEr/multi-worker ./worker
+  - docker build -t andreaer/multi-client ./client
+  - docker build -t andreaer/multi-nginx ./nginx
+  - docker build -t andreaer/multi-server ./server
+  - docker build -t andreaer/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push AndreaEr/multi-client
-  - docker push AndreaEr/multi-nginx
-  - docker push AndreaEr/multi-server
-  - docker push AndreaEr/multi-worker
+  - docker push andreaer/multi-client
+  - docker push andreaer/multi-nginx
+  - docker push andreaer/multi-server
+  - docker push andreaer/multi-worker
 
 deploy:
   provider: elasticbeanstalk
